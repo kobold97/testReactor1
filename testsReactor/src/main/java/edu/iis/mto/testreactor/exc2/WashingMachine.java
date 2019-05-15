@@ -6,6 +6,7 @@ public class WashingMachine {
 
     public static final Percentage AVERAGE_DEGREE = new Percentage(40.0d);
     public static final double MAX_WEIGTH_KG = 8;
+    private static final double HALF_MAX_WEIGTH = MAX_WEIGTH_KG / 2;
     private final DirtDetector dirtDetector;
     private final Engine engine;
     private final WaterPump waterPump;
@@ -27,6 +28,9 @@ public class WashingMachine {
     }
 
     private boolean overweight(LaundryBatch laundryBatch) {
+        if (laundryBatch.getType() == Material.WOOL) {
+            return laundryBatch.getWeightKg() > HALF_MAX_WEIGTH;
+        }
         return laundryBatch.getWeightKg() > MAX_WEIGTH_KG;
     }
 
