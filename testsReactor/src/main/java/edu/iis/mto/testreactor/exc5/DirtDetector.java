@@ -1,4 +1,4 @@
-package edu.iis.mto.testreactor.exc2;
+package edu.iis.mto.testreactor.exc5;
 
 public interface DirtDetector {
 

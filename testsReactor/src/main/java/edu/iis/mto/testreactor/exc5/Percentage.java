@@ -1,6 +1,8 @@
-package edu.iis.mto.testreactor.exc2;
+package edu.iis.mto.testreactor.exc5;
 
-import java.util.Objects;
+import static java.lang.Double.doubleToLongBits;
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
 
 public class Percentage {
 
@@ -14,16 +16,16 @@ public class Percentage {
     }
 
     public boolean isGreaterThan(Percentage other) {
-        return Objects.requireNonNull(other, "other == null").value < this.value;
+        return requireNonNull(other, "other == null").value < this.value;
     }
 
     public boolean lowerThan(Percentage other) {
-        return Objects.requireNonNull(other, "other == null").value > this.value;
+        return requireNonNull(other, "other == null").value > this.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return hash(value);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Percentage {
             return false;
         }
         Percentage other = (Percentage) obj;
-        return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
+        return doubleToLongBits(value) == doubleToLongBits(other.value);
     }
 
 }

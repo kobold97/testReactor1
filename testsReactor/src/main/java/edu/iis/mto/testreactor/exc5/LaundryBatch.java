@@ -1,28 +1,28 @@
-package edu.iis.mto.testreactor.exc2;
+package edu.iis.mto.testreactor.exc5;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 public class LaundryBatch {
 
     private final double weightKg;
-    private final Material type;
+    private final Material materialType;
 
     private LaundryBatch(Builder builder) {
-        this.weightKg = Objects.requireNonNull(builder.weightKg, "weightKg == null");
-        this.type = Objects.requireNonNull(builder.type, "type == null");
+        this.weightKg = requireNonNull(builder.weightKg, "weightKg == null");
+        this.materialType = requireNonNull(builder.materialType, "materialType == null");
     }
 
     public double getWeightKg() {
         return weightKg;
     }
 
-    public Material getType() {
-        return type;
+    public Material getMaterialType() {
+        return materialType;
     }
 
     @Override
     public String toString() {
-        return "LaundryBatch [weigth=" + weightKg + ", type=" + type + "]";
+        return "LaundryBatch [weightKg=" + weightKg + ", materialType=" + materialType + "]";
     }
 
     public static Builder builder() {
@@ -32,7 +32,7 @@ public class LaundryBatch {
     public static final class Builder {
 
         private double weightKg;
-        private Material type;
+        private Material materialType;
 
         private Builder() {}
 
@@ -41,8 +41,8 @@ public class LaundryBatch {
             return this;
         }
 
-        public Builder withType(Material type) {
-            this.type = type;
+        public Builder withMaterialType(Material materialType) {
+            this.materialType = materialType;
             return this;
         }
 

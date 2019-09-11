@@ -1,10 +1,10 @@
-package edu.iis.mto.testreactor.exc2;
+package edu.iis.mto.testreactor.exc5;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 public class WashingMachine {
 
-    public static final Percentage AVERAGE_DEGREE = new Percentage(40.0d);
+    public static final Percentage AVERAGE_DEGREE = new Percentage(50.0d);
     public static final double MAX_WEIGTH_KG = 8;
     private static final double HALF_MAX_WEIGTH = MAX_WEIGTH_KG / 2;
     private final DirtDetector dirtDetector;
@@ -12,9 +12,9 @@ public class WashingMachine {
     private final WaterPump waterPump;
 
     public WashingMachine(DirtDetector dirtDetector, Engine engine, WaterPump waterPump) {
-        this.dirtDetector = Objects.requireNonNull(dirtDetector, "dirtDetector == null");
-        this.engine = Objects.requireNonNull(engine, "engine == null");
-        this.waterPump = Objects.requireNonNull(waterPump, "waterPump == null");
+        this.dirtDetector = requireNonNull(dirtDetector, "dirtDetector == null");
+        this.engine = requireNonNull(engine, "engine == null");
+        this.waterPump = requireNonNull(waterPump, "waterPump == null");
     }
 
     public LaundryStatus start(LaundryBatch laundryBatch, ProgramConfiguration programConfiguration) {
@@ -28,8 +28,8 @@ public class WashingMachine {
     }
 
     private boolean overweight(LaundryBatch laundryBatch) {
-        if (laundryBatch.getType() == Material.WOOL) {
-            return laundryBatch.getWeightKg() > HALF_MAX_WEIGTH;
+        if (laundryBatch.getMaterialType() == Material.WOOL || laundryBatch.getMaterialType() == Material.JEANS) {
+            return laundryBatch.getWeightKg() >= HALF_MAX_WEIGTH;
         }
         return laundryBatch.getWeightKg() > MAX_WEIGTH_KG;
     }
