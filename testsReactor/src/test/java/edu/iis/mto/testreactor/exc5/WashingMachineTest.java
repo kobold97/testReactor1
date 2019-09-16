@@ -5,8 +5,17 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.*;
 
+import static org.mockito.Mockito.*;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+ 
+
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
 public class WashingMachineTest {
 
 	@Mock
@@ -18,6 +27,7 @@ public class WashingMachineTest {
 	@Mock
 	WaterPump waterPump;
 	
+	@Mock
 	WashingMachine washingMachine;
 	
     public static final double MAX_WEIGTH_KG = 8;
@@ -37,6 +47,7 @@ public class WashingMachineTest {
 		laundryBuilder.withMaterialType(Material.WOOL);
 		LaundryBatch laundryBatch = laundryBuilder.build();
 		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.LONG);
 		ProgramConfiguration programConfiguration = configurationBuilder.build();
 		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
 		
@@ -54,6 +65,7 @@ public class WashingMachineTest {
 		laundryBuilder.withMaterialType(Material.COTTON);
 		LaundryBatch laundryBatch = laundryBuilder.build();
 		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.LONG);
 		ProgramConfiguration programConfiguration = configurationBuilder.build();
 		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
 		
@@ -73,7 +85,7 @@ public class WashingMachineTest {
 		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
 		configurationBuilder.withProgram(Program.AUTODETECT);
 		ProgramConfiguration programConfiguration = configurationBuilder.build();
-		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		washingMachine.start(laundryBatch, programConfiguration);
 		
 		verify(dirtDetecor, times(1)).detectDirtDegree(laundryBatch);
 
@@ -90,7 +102,7 @@ public class WashingMachineTest {
 		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
 		configurationBuilder.withProgram(Program.AUTODETECT);
 		ProgramConfiguration programConfiguration = configurationBuilder.build();
-		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		washingMachine.start(laundryBatch, programConfiguration);
 		
 		verify(waterPump, times(1)).pour(laundryBatch.getWeightKg());
 
