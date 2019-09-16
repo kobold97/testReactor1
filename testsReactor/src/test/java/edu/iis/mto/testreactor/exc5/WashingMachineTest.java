@@ -123,10 +123,11 @@ public class WashingMachineTest {
 		LaundryBatch laundryBatch = laundryBuilder.build();
 		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
 		configurationBuilder.withProgram(Program.LONG);
+		configurationBuilder.withSpin(true);
 		ProgramConfiguration programConfiguration = configurationBuilder.build();
 		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
 		
-		verify(waterPump, times(1)).release();
+		verify(engine, times(1)).spin();
 
 	}
 	
