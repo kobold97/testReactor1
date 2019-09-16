@@ -128,7 +128,23 @@ public class WashingMachineTest {
 		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
 		
 		verify(engine, times(1)).spin();
-
 	}
 	
+	@Test 
+	public void laundryFinishesWithSuccess() {
+
+		
+		LaundryBatch.Builder laundryBuilder = LaundryBatch.builder();
+		laundryBuilder.withWeightKg(MAX_WEIGTH_KG - 2);
+		laundryBuilder.withMaterialType(Material.COTTON);
+		LaundryBatch laundryBatch = laundryBuilder.build();
+		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.LONG);
+		configurationBuilder.withSpin(true);
+		ProgramConfiguration programConfiguration = configurationBuilder.build();
+		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		
+		Assert.assertThat(status.getResult(), Matchers.equalTo(Result.SUCCESS));
+
+	}
 }
