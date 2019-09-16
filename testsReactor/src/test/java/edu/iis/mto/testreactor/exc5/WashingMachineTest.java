@@ -79,5 +79,55 @@ public class WashingMachineTest {
 
 	}
 	
+	@Test 
+	public void checkIfPumpPours() {
+
+		
+		LaundryBatch.Builder laundryBuilder = LaundryBatch.builder();
+		laundryBuilder.withWeightKg(MAX_WEIGTH_KG - 2);
+		laundryBuilder.withMaterialType(Material.COTTON);
+		LaundryBatch laundryBatch = laundryBuilder.build();
+		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.AUTODETECT);
+		ProgramConfiguration programConfiguration = configurationBuilder.build();
+		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		
+		verify(waterPump, times(1)).pour(laundryBatch.getWeightKg());
+
+	}
+	
+	@Test 
+	public void checkIfEngineRunWashing() {
+
+		
+		LaundryBatch.Builder laundryBuilder = LaundryBatch.builder();
+		laundryBuilder.withWeightKg(MAX_WEIGTH_KG - 2);
+		laundryBuilder.withMaterialType(Material.COTTON);
+		LaundryBatch laundryBatch = laundryBuilder.build();
+		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.LONG);
+		ProgramConfiguration programConfiguration = configurationBuilder.build();
+		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		
+		verify(engine, times(1)).runWashing(Program.LONG.getTimeInMinutes());
+
+	}
+	
+	@Test 
+	public void checkIfWaterPumpReleases() {
+
+		
+		LaundryBatch.Builder laundryBuilder = LaundryBatch.builder();
+		laundryBuilder.withWeightKg(MAX_WEIGTH_KG - 2);
+		laundryBuilder.withMaterialType(Material.COTTON);
+		LaundryBatch laundryBatch = laundryBuilder.build();
+		ProgramConfiguration.Builder configurationBuilder = ProgramConfiguration.builder();
+		configurationBuilder.withProgram(Program.LONG);
+		ProgramConfiguration programConfiguration = configurationBuilder.build();
+		LaundryStatus status = washingMachine.start(laundryBatch, programConfiguration);
+		
+		verify(waterPump, times(1)).release();
+
+	}
 	
 }
